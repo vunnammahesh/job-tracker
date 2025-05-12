@@ -6,28 +6,34 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AddJob from './pages/AddJob';
 import Layout from './components/Layout';
+import PrivateRoute from './components/PrivateRoute';
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <PrivateRoute />,
     errorElement: <NotFound />,
     children: [
-      { path: "/", element: <Dashboard /> },
-      { path: "/add-job", element: <AddJob /> },
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-    errorElement: <NotFound />,
-  },
-]);
+      {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { path: "/", element: <Dashboard /> },
+        { path: "/add-job", element: <AddJob /> },
+      ],
+      }]
+    },
+    {
+      path: "/login",
+      element: <Login />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
+      errorElement: <NotFound />,
+    }
+  ]);
 
 function App() {
   return <RouterProvider router={appRouter} />;
